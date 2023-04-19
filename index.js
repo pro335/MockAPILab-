@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const isLocal = true;
+const isLocal = process.env.NODE_ENV !== "production";
+const MonoDB = require('./config/mongodb');
+const Mongoose = require('./config/mongoose');
 
 app.get('/', (req, res) => {
-    res.json({
+	res.json({
 		message: "✨ 👋🌏 ✨",
 		stage: process.env.NODE_ENV,
 	});
@@ -15,6 +17,10 @@ app.get("/ping", (req, res) => {
 		message: "🏓",
 	});
 });
+
+// initialize database.
+MonoDB();
+Mongoose();
 
 if (isLocal) {
 	//local host
