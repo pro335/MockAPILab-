@@ -5,22 +5,25 @@ const isLocal = process.env.NODE_ENV !== "production";
 const MonoDB = require('./config/mongodb');
 const Mongoose = require('./config/mongoose');
 
-app.get('/', (req, res) => {
-	res.json({
-		message: "✨ 👋🌏 ✨",
-		stage: process.env.NODE_ENV,
-	});
-});
+// app.get('/', (req, res) => {
+// 	res.json({
+// 		message: "✨ 👋🌏 ✨",
+// 		stage: process.env.NODE_ENV,
+// 	});
+// });
 
-app.get("/ping", (req, res) => {
-	res.json({
-		message: "🏓",
-	});
-});
+// app.get("/ping", (req, res) => {
+// 	res.json({
+// 		message: "🏓",
+// 	});
+// });
 
 // initialize database.
 MonoDB();
 Mongoose();
+
+//load the routes
+require('./routes/Loan.routes')(app);
 
 if (isLocal) {
 	//local host
